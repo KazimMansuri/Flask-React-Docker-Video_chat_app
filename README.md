@@ -30,5 +30,7 @@ ________________________________________________________
 DOCKER_CONTAINER :-
 
 step:1 create .env file in Backend DIR
+
 step:2 Build Docker Container :- docker-compose up --build
+
 step:3 run Docker Container :- docker-compose up
