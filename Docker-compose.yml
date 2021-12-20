@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  api:
+    build: ./backend
+    command: ["flask", "run", "--host=0.0.0.0"]
+    volumes:
+      - ./backend:/api
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY='3cd37a111e044698a41fa6b9dfb74864'
+      - FLASK_APP=app.py
+    env_file: 
+            - ./backend/.env    
+    ports:
+      - "5000:5000"
+
+
+
+  client:
+    build: ./frontend
+    command: ["npm", "start", "--host", "0.0.0.0"]
+    volumes:
+      - ./frontend:/client
+      - node-modules:/frontend/node_modules
+    environment:
+      - NODE_ENV=development
+      - HOST_URL="http://172.27.144.1:5000"
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+volumes:
+  node-modules:
